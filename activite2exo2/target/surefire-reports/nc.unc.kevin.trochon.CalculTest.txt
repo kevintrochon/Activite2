@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: nc.unc.kevin.trochon.CalculTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.08 s - in nc.unc.kevin.trochon.CalculTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.088 s - in nc.unc.kevin.trochon.CalculTest
