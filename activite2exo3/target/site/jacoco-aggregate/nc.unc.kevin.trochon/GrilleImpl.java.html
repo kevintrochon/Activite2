@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GrilleImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">activite2exo3$GrilleImplTest.exec</a> &gt; <a href="index.source.html" class="el_package">nc.unc.kevin.trochon</a> &gt; <span class="el_source">GrilleImpl.java</span></div><h1>GrilleImpl.java</h1><pre class="source lang-java linenums">package nc.unc.kevin.trochon;
+
+/**
+ * Création d'une grille de Sudoku.
+ */
+public class GrilleImpl implements Grille {
+  /**
+   * taille de grille 4 x 4.
+   */
+  private static final int PETITE = 4;
+  /**
+   * taille de grille 9 x 9.
+   */
+  private static final int NORMALE = 9;
+  /**
+   * taille de grille 16 x 16.
+   */
+  private static final int GRANDE = 16;
+  /**
+   * taille de grille 25 x 25.
+   */
+  private static final int GEANTE = 25;
+  /**
+   * Grille de caractère.
+   */
+  private final char[][] grille;
+  /**
+   * Dimension de la grille.
+   */
+  private final int dimension;
+  /** Caractere de case vide. */
+  private static final char EMPTY = '@';
+  /**
+   * Caractere possible a mettre dans la grille.
+   * pour une grille 4x4 : 1..4
+   * pour une grille 9x9 : 1..9
+   * pour une grille 16x16: 0..9-a..f
+   * pour une grille 25x25: 0..9-a..o
+   */
+  private final char[] caracterePossible;
+
+  /**
+   * Constructeur de la Grille selon une taille définie.
+   *
+   * @param tailleUtilisateur taille de la grille.
+   *
+   */
+<span class="fc" id="L48">  public GrilleImpl(final int tailleUtilisateur) {</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">    if (tailleUtilisateur == PETITE) {</span>
+<span class="fc" id="L50">      grille = new char[][]{</span>
+          {'1', '2', '3', '4'},
+          {'3', '4', '2', '1'},
+          {'2', '1', '4', '3'},
+          {'4', '3', '1', '2'}
+      };
+<span class="fc" id="L56">      this.dimension = tailleUtilisateur;</span>
+<span class="fc" id="L57">      this.caracterePossible = new char[]{</span>
+          '1', '2', '3', '4'};
+<span class="fc bfc" id="L59" title="All 2 branches covered.">    } else if (tailleUtilisateur == NORMALE) {</span>
+<span class="fc" id="L60">      this.dimension = tailleUtilisateur;</span>
+<span class="fc" id="L61">      grille = new char[][]{</span>
+        {'@', '6', '@', '@', '@', '1', '@', '@', '2'},
+        {'@', '7', '@', '@', '@', '4', '@', '@', '3'},
+        {'8', '@', '@', '7', '3', '@', '1', '@', '@'},
+        {'@', '@', '9', '@', '@', '@', '8', '@', '@'},
+        {'@', '@', '@', '@', '@', '@', '7', '1', '@'},
+        {'4', '3', '@', '@', '@', '@', '@', '2', '@'},
+        {'@', '1', '@', '2', '@', '@', '@', '9', '@'},
+        {'5', '@', '@', '8', '6', '@', '@', '@', '4'},
+        {'6', '@', '@', '@', '@', '@', '5', '@', '7'}
+      };
+<span class="fc" id="L72">      this.caracterePossible = new char[]{</span>
+          '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+<span class="fc bfc" id="L74" title="All 2 branches covered.">    } else if (tailleUtilisateur == GRANDE) {</span>
+<span class="fc" id="L75">      grille = new char[tailleUtilisateur][tailleUtilisateur];</span>
+<span class="fc" id="L76">      this.dimension = tailleUtilisateur;</span>
+<span class="fc" id="L77">      this.caracterePossible = new char[]{</span>
+          '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+          'a', 'b', 'c', 'd', 'e', 'f'};
+<span class="fc bfc" id="L80" title="All 2 branches covered.">    } else if (tailleUtilisateur == GEANTE) {</span>
+<span class="fc" id="L81">      grille = new char[tailleUtilisateur][tailleUtilisateur];</span>
+<span class="fc" id="L82">      this.dimension = tailleUtilisateur;</span>
+<span class="fc" id="L83">      this.caracterePossible = new char[]{</span>
+          '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+          'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
+          'k', 'l', 'm', 'n', 'o'};
+    } else {
+<span class="fc" id="L88">      this.dimension = NORMALE;</span>
+<span class="fc" id="L89">      grille = new char[][]{</span>
+          {'2', '8', '3', '5', '1', '9', '7', '4', '6'},
+          {'9', '6', '4', '8', '7', '3', '5', '2', '1'},
+          {'5', '1', '7', '6', '2', '4', '9', '3', '8'},
+          {'1', '5', '6', '7', '4', '2', '3', '8', '9'},
+          {'@', '@', '@', '@', '@', '@', '7', '1', '@'},
+          {'4', '3', '@', '@', '@', '@', '@', '2', '@'},
+          {'@', '1', '@', '2', '@', '@', '@', '9', '@'},
+          {'@', '@', '@', '8', '6', '@', '@', '@', '@'},
+          {'6', '@', '@', '@', '@', '@', '5', '@', '7'}
+      };
+<span class="fc" id="L100">      this.caracterePossible = new char[]{</span>
+          '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    }
+<span class="fc" id="L103">  }</span>
+
+  /**
+   * Vérification que la valeur saisie soit permise
+   * selon la taille de la grille.
+   */
+  private boolean isCaracterPermis(final char value) {
+<span class="fc" id="L110">    boolean isPermis = false;</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">    for (final char c : this.caracterePossible) {</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">      if (c == value) {</span>
+<span class="fc" id="L113">        isPermis = true;</span>
+<span class="fc" id="L114">        break;</span>
+      }
+    }
+<span class="fc" id="L117">    return isPermis;</span>
+  }
+
+  /**
+   * Calcule du point de départ de la région.
+   */
+  public int remisePointZeroRegion(final int ligne) {
+<span class="fc" id="L124">    final int tailleRegion = (int) Math.sqrt((double) this.getDimension());</span>
+<span class="fc" id="L125">    int pointZeroLigne = 0;</span>
+<span class="fc bfc" id="L126" title="All 4 branches covered.">    if (ligne &gt;= tailleRegion &amp;&amp; ligne &lt; 2 * tailleRegion) {</span>
+<span class="fc" id="L127">      pointZeroLigne = tailleRegion + 1;</span>
+<span class="fc bfc" id="L128" title="All 4 branches covered.">    } else if (ligne &gt;= 2 * tailleRegion &amp;&amp; ligne &lt; 3 * tailleRegion) {</span>
+<span class="fc" id="L129">      pointZeroLigne = 2 * tailleRegion + 1;</span>
+<span class="fc bfc" id="L130" title="All 4 branches covered.">    } else if (ligne &gt;= 3 * tailleRegion &amp;&amp; ligne &lt; 4 * tailleRegion) {</span>
+<span class="fc" id="L131">      pointZeroLigne = 3 * tailleRegion + 1;</span>
+<span class="pc bpc" id="L132" title="1 of 4 branches missed.">    } else if (ligne &gt;= 4 * tailleRegion &amp;&amp; ligne &lt; 5 * tailleRegion) {</span>
+<span class="fc" id="L133">      pointZeroLigne = 4 * tailleRegion + 1;</span>
+    }
+<span class="fc" id="L135">    return pointZeroLigne;</span>
+  }
+
+  /**
+  * Vérifie que la valeur
+  * n'est pas présente autour de lui.
+  */
+  public boolean verifRegion(final int ligne, final int colonne, final char value)
+      throws HorsBornesException, CaractereInterditException {
+<span class="fc bfc" id="L144" title="All 4 branches covered.">    if (ligne &lt; 0 || ligne &gt;= this.getDimension()) {</span>
+<span class="fc" id="L145">      throw new HorsBornesException(&quot;La coordonnées : &quot; + ligne</span>
+          + &quot; n'est pas correcte, elle est hors grille&quot;);
+<span class="fc bfc" id="L147" title="All 4 branches covered.">    } else if (colonne &lt; 0 || colonne &gt;= this.getDimension()) {</span>
+<span class="fc" id="L148">      throw new HorsBornesException(&quot;La coordonnées : &quot; + colonne</span>
+          + &quot; n'est pas correcte, elle est hors grille&quot;);
+<span class="fc bfc" id="L150" title="All 2 branches covered.">    } else if (!isCaracterPermis(value)) {</span>
+<span class="fc" id="L151">      throw new CaractereInterditException(&quot;Le caractère : &quot; + value</span>
+          + &quot; que vous avez renseignée n'est pas permise.&quot;);
+    }
+<span class="fc" id="L154">    boolean isPermis = true;</span>
+<span class="fc" id="L155">    final int tailleRegion = (int) Math.sqrt((double) this.getDimension());</span>
+<span class="fc" id="L156">    final int pointZeroLigne = remisePointZeroRegion(ligne);</span>
+<span class="fc" id="L157">    final int pointZeroColonne =  remisePointZeroRegion(colonne);</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">    for (int i = pointZeroLigne; i &lt; tailleRegion + pointZeroLigne - 1; i++) {</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">      for (int j = pointZeroColonne; j &lt; tailleRegion + pointZeroColonne - 1; j++) {</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">        if (grille[i][j] == value) {</span>
+<span class="fc" id="L161">          isPermis = false;</span>
+<span class="fc" id="L162">          break;</span>
+        }
+      }
+    }
+<span class="fc" id="L166">    return isPermis;</span>
+  }
+
+  /**
+   * Vérifie que le caractère
+   * ne soit pas présent sur la ligne.
+   */
+  public boolean verifLigne(final int ligne, final char value)
+      throws HorsBornesException, CaractereInterditException {
+<span class="fc bfc" id="L175" title="All 4 branches covered.">    if (ligne &lt; 0 || ligne &gt; this.getDimension()) {</span>
+<span class="fc" id="L176">      throw new HorsBornesException(&quot;La coordonnées : &quot; + ligne</span>
+          + &quot; n'est pas correcte, elle est hors grille&quot;);
+<span class="fc bfc" id="L178" title="All 2 branches covered.">    } else if (!isCaracterPermis(value)) {</span>
+<span class="fc" id="L179">      throw new CaractereInterditException(&quot;Le caractère : &quot; + value</span>
+          + &quot; que vous avez renseignée n'est pas permise.&quot;);
+    }
+<span class="fc" id="L182">    boolean isPermis = true;</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">    for (int i = 0; i &lt; grille[ligne].length; i++) {</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">      if (grille[ligne][i] == value) {</span>
+<span class="fc" id="L185">        isPermis = false;</span>
+<span class="fc" id="L186">        break;</span>
+      }
+    }
+<span class="fc" id="L189">    return isPermis;</span>
+  }
+
+  /**
+   * Vérifie que le caractère ne soit pas présent sur la colonne.
+   */
+  public boolean verifColonne(final int colonne, final char value)
+      throws HorsBornesException, CaractereInterditException {
+<span class="fc bfc" id="L197" title="All 4 branches covered.">    if (colonne &lt; 0 || colonne &gt; this.getDimension()) {</span>
+<span class="fc" id="L198">      throw new HorsBornesException(&quot;La coordonnées : &quot; + colonne</span>
+          + &quot; n'est pas correcte, elle est hors grille&quot;);
+<span class="fc bfc" id="L200" title="All 2 branches covered.">    } else if (!isCaracterPermis(value)) {</span>
+<span class="fc" id="L201">      throw new CaractereInterditException(&quot;Le caractère : &quot; + value</span>
+          + &quot; que vous avez renseignée n'est pas permise.&quot;);
+    }
+<span class="fc" id="L204">    boolean isPermis = true;</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">    for (final char[] chars : grille) {</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">      if (chars[colonne] == value) {</span>
+<span class="fc" id="L207">        isPermis = false;</span>
+<span class="fc" id="L208">        break;</span>
+      }
+    }
+<span class="fc" id="L211">    return isPermis;</span>
+  }
+
+
+
+  /**
+   * Donne la dimension de la grille.
+   */
+  @Override
+  public int getDimension() {
+<span class="fc" id="L221">    return this.dimension;</span>
+  }
+
+
+  /**
+   * Affecte une valeur dans la grille.
+   */
+  @Override
+  public void setValue(final int ligne, final int colonne, final char value)
+      throws HorsBornesException, ValeurImpossibleException, CaractereInterditException {
+<span class="fc bfc" id="L231" title="All 4 branches covered.">    if (ligne &lt; 0 || ligne &gt; this.getDimension()) {</span>
+<span class="fc" id="L232">      throw new HorsBornesException(&quot;La coordonnées : &quot; + ligne</span>
+          + &quot; n'est pas correcte, elle est hors grille&quot;);
+<span class="fc bfc" id="L234" title="All 4 branches covered.">    } else if (colonne &lt; 0 || colonne &gt; this.getDimension()) {</span>
+<span class="fc" id="L235">      throw new HorsBornesException(&quot;La coordonnées : &quot; + colonne</span>
+          + &quot; n'est pas correcte, elle est hors grille&quot;);
+<span class="fc bfc" id="L237" title="All 2 branches covered.">    } else if (!isCaracterPermis(value)) {</span>
+<span class="fc" id="L238">      throw new CaractereInterditException(&quot;Le caractère : &quot; + value</span>
+          + &quot; que vous avez renseignée n'est pas permise.&quot;);
+<span class="fc bfc" id="L240" title="All 2 branches covered.">    } else if (!this.possible(ligne, colonne, value)) {</span>
+<span class="fc" id="L241">      throw new ValeurImpossibleException(&quot;La valeur : &quot; + value</span>
+          + &quot; est déjà présente dans la ligne ou la colonne ou dans la region&quot;);
+    } else {
+<span class="pc bpc" id="L244" title="1 of 2 branches missed.">      if (this.getValue(ligne, colonne) == EMPTY) {</span>
+<span class="fc" id="L245">        grille[ligne][colonne] = value;</span>
+      }
+    }
+<span class="fc" id="L248">  }</span>
+
+  /**
+   * Recupere une valeur de la grille.
+   */
+  @Override
+  public char getValue(final int ligne, final int colonne) throws HorsBornesException {
+<span class="fc bfc" id="L255" title="All 4 branches covered.">    if (ligne &gt; this.getDimension() || ligne &lt; 0) {</span>
+<span class="fc" id="L256">      throw new HorsBornesException(&quot;La coordonnées : &quot; + ligne</span>
+          + &quot; n'est pas correcte, elle est hors grille&quot;);
+<span class="fc bfc" id="L258" title="All 4 branches covered.">    } else if (colonne &lt; 0 || colonne &gt; this.getDimension()) {</span>
+<span class="fc" id="L259">      throw new HorsBornesException(&quot;La coordonnées : &quot; + colonne</span>
+          + &quot; n'est pas correcte, elle est hors grille&quot;);
+    }
+<span class="fc" id="L262">    return grille[ligne][colonne];</span>
+  }
+
+  /**
+   * Vérifie si une grille est terminée.
+
+   * @return true si la grille est complète.
+   */
+  @Override
+  public boolean complete() {
+<span class="fc" id="L272">    boolean isComplete = true;</span>
+    try {
+<span class="fc bfc" id="L274" title="All 2 branches covered.">      for (int i = 0; i &lt; grille.length; i++) {</span>
+<span class="fc bfc" id="L275" title="All 2 branches covered.">        for (int j = 0; j &lt; grille[i].length; j++) {</span>
+<span class="fc bfc" id="L276" title="All 4 branches covered.">          if (verifRegion(i, j, grille[i][j]) &amp;&amp; verifColonne(i, grille[i][j])</span>
+<span class="pc bpc" id="L277" title="1 of 4 branches missed.">              &amp;&amp; verifLigne(j, grille[i][j]) &amp;&amp; grille[i][j] != EMPTY) {</span>
+<span class="fc" id="L278">            isComplete = false;</span>
+<span class="fc" id="L279">            break;</span>
+          }
+        }
+      }
+<span class="fc" id="L283">    } catch (HorsBornesException | CaractereInterditException horsBornes) {</span>
+<span class="fc" id="L284">      isComplete = false;</span>
+<span class="fc" id="L285">    }</span>
+<span class="fc" id="L286">    return isComplete;</span>
+  }
+
+  /**
+  * Vérifie si le caractère dans la grille est possible.
+  */
+  @Override
+  public boolean possible(final int ligne, final int colonne, final char value)
+      throws HorsBornesException, CaractereInterditException {
+<span class="fc" id="L295">    boolean isPossible = true;</span>
+<span class="fc bfc" id="L296" title="All 4 branches covered.">    if (ligne &lt; 0 || ligne &gt; this.getDimension()) {</span>
+<span class="fc" id="L297">      throw new HorsBornesException(&quot;La coordonnées : &quot; + ligne</span>
+          + &quot; n'est pas correcte, elle est hors grille&quot;);
+<span class="fc bfc" id="L299" title="All 4 branches covered.">    } else if (colonne &lt; 0 || colonne &gt; this.getDimension()) {</span>
+<span class="fc" id="L300">      throw new HorsBornesException(&quot;La coordonnées : &quot; + colonne</span>
+          + &quot; n'est pas correcte, elle est hors grille&quot;);
+<span class="fc bfc" id="L302" title="All 2 branches covered.">    } else if (!isCaracterPermis(value)) {</span>
+<span class="fc" id="L303">      throw new CaractereInterditException(&quot;Le caractère : &quot; + value</span>
+          + &quot; que vous avez renseignée n'est pas permise.&quot;);
+<span class="fc bfc" id="L305" title="All 2 branches covered.">    } else if (!verifRegion(ligne, colonne, value)) {</span>
+<span class="fc" id="L306">      isPossible = false;</span>
+<span class="fc bfc" id="L307" title="All 2 branches covered.">    } else if (!verifColonne(colonne, value)) {</span>
+<span class="fc" id="L308">      isPossible = false;</span>
+<span class="fc bfc" id="L309" title="All 2 branches covered.">    } else if (!verifLigne(ligne, value)) {</span>
+<span class="fc" id="L310">      isPossible = false;</span>
+    }
+<span class="fc" id="L312">    return isPossible;</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

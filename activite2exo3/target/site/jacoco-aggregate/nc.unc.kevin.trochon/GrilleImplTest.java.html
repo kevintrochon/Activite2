@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GrilleImplTest.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">activite2exo3$GrilleImplTest.exec</a> &gt; <a href="index.source.html" class="el_package">nc.unc.kevin.trochon</a> &gt; <span class="el_source">GrilleImplTest.java</span></div><h1>GrilleImplTest.java</h1><pre class="source lang-java linenums">package nc.unc.kevin.trochon;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+<span class="fc" id="L6">public class GrilleImplTest {</span>
+
+  @Test
+  public void setValueTest() throws ValeurImpossibleException,CaractereInterditException,HorsBornesException{
+<span class="fc" id="L10">    GrilleImpl grille = new GrilleImpl(9);</span>
+<span class="fc" id="L11">    grille.setValue(0,0,'3');</span>
+<span class="fc" id="L12">    Assertions.assertEquals('3',grille.getValue(0,0));</span>
+<span class="pc" id="L13">    Assertions.assertThrows(ValeurImpossibleException.class,()-&gt;{grille.setValue(0,0,'1');});</span>
+<span class="pc" id="L14">    Assertions.assertThrows(ValeurImpossibleException.class,()-&gt;{grille.setValue(1,1,'6');});</span>
+<span class="pc" id="L15">    Assertions.assertThrows(CaractereInterditException.class,()-&gt;{grille.setValue(0,0,'0');});</span>
+<span class="pc" id="L16">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.setValue(-1,0,'2');});</span>
+<span class="pc" id="L17">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.setValue(10,0,'2');});</span>
+<span class="pc" id="L18">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.setValue(0,-1,'2');});</span>
+<span class="pc" id="L19">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.setValue(0,10,'2');});</span>
+    try{
+<span class="nc" id="L21">      grille.setValue(-1,0,'2');</span>
+<span class="fc" id="L22">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L23">      Assertions.assertEquals(&quot;La coordonnées : -1 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L24">    }</span>
+<span class="fc" id="L25">  }</span>
+
+  @Test
+  public void constructeurTest(){
+<span class="fc" id="L29">    GrilleImpl petiteGrille = new GrilleImpl(4);</span>
+<span class="fc" id="L30">    GrilleImpl grille = new GrilleImpl(9);</span>
+<span class="fc" id="L31">    GrilleImpl grandeGrille = new GrilleImpl(16);</span>
+<span class="fc" id="L32">    GrilleImpl geanteGrille = new GrilleImpl(25);</span>
+<span class="fc" id="L33">    GrilleImpl defaultGrille = new GrilleImpl(15);</span>
+<span class="fc" id="L34">  }</span>
+
+  @Test
+  public void completeTest(){
+<span class="fc" id="L38">    GrilleImpl grille = new GrilleImpl(9);</span>
+<span class="fc" id="L39">    Assertions.assertFalse(grille.complete());</span>
+<span class="fc" id="L40">    GrilleImpl petiteGrille = new GrilleImpl(4);</span>
+<span class="fc" id="L41">    Assertions.assertTrue(petiteGrille.complete());</span>
+<span class="fc" id="L42">    GrilleImpl nimpGrille = new GrilleImpl(12);</span>
+<span class="fc" id="L43">    Assertions.assertFalse(nimpGrille.complete());</span>
+<span class="fc" id="L44">  }</span>
+
+  @Test
+  public void possibleTest() throws CaractereInterditException,HorsBornesException{
+<span class="fc" id="L48">    GrilleImpl grille = new GrilleImpl(9);</span>
+<span class="fc" id="L49">    Assertions.assertTrue(grille.possible(0,0,'3'));</span>
+<span class="fc" id="L50">    Assertions.assertFalse(grille.possible(0,0,'1'));</span>
+<span class="fc" id="L51">    Assertions.assertFalse(grille.possible(2,1,'7'));</span>
+<span class="fc" id="L52">    Assertions.assertFalse(grille.possible(3,1,'7'));</span>
+<span class="pc" id="L53">    Assertions.assertThrows(CaractereInterditException.class,()-&gt;{grille.possible(0,0,'0');});</span>
+<span class="pc" id="L54">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.possible(-1,0,'2');});</span>
+<span class="pc" id="L55">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.possible(10,0,'2');});</span>
+<span class="pc" id="L56">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.possible(0,-1,'2');});</span>
+<span class="pc" id="L57">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.possible(0,10,'2');});</span>
+<span class="fc" id="L58">  }</span>
+
+  @Test
+  public void getValueTest() throws HorsBornesException {
+<span class="fc" id="L62">    GrilleImpl grille = new GrilleImpl(9);</span>
+<span class="fc" id="L63">    Assertions.assertEquals('@',grille.getValue(0,0));</span>
+<span class="pc" id="L64">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.possible(-1,0,'2');});</span>
+<span class="pc" id="L65">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.possible(10,0,'2');});</span>
+<span class="pc" id="L66">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.possible(0,-1,'2');});</span>
+<span class="pc" id="L67">    Assertions.assertThrows(HorsBornesException.class,()-&gt;{grille.possible(0,10,'2');});</span>
+    try{
+<span class="nc" id="L69">      grille.getValue(-1,0);</span>
+<span class="fc" id="L70">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L71">      Assertions.assertEquals(&quot;La coordonnées : -1 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L72">    }</span>
+    try{
+<span class="nc" id="L74">      grille.getValue(10,0);</span>
+<span class="fc" id="L75">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L76">      Assertions.assertEquals(&quot;La coordonnées : 10 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L77">    }</span>
+    try{
+<span class="nc" id="L79">      grille.getValue(0,-1);</span>
+<span class="fc" id="L80">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L81">      Assertions.assertEquals(&quot;La coordonnées : -1 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L82">    }</span>
+    try{
+<span class="nc" id="L84">      grille.getValue(0,10);</span>
+<span class="fc" id="L85">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L86">      Assertions.assertEquals(&quot;La coordonnées : 10 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L87">    }</span>
+<span class="fc" id="L88">  }</span>
+
+  @Test
+  public void verifColonneTest(){
+<span class="fc" id="L92">    GrilleImpl grille = new GrilleImpl(9);</span>
+    try{
+<span class="nc" id="L94">      grille.verifColonne(10,'7');</span>
+<span class="fc" id="L95">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L96">      Assertions.assertEquals(&quot;La coordonnées : 10 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L97">    }catch (CaractereInterditException caractereInterdit){</span>
+<span class="nc" id="L98">      Assertions.assertEquals(&quot;Le caractère : @  que vous avez renseignée n'est pas permise.&quot;,caractereInterdit.getMessage());</span>
+<span class="pc" id="L99">    }</span>
+
+    try{
+<span class="nc" id="L102">      grille.verifColonne(-1,'7');</span>
+<span class="fc" id="L103">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L104">      Assertions.assertEquals(&quot;La coordonnées : -1 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L105">    }catch (CaractereInterditException caractereInterdit){</span>
+<span class="nc" id="L106">      Assertions.assertEquals(&quot;Le caractère : @ que vous avez renseignée n'est pas permise.&quot;,caractereInterdit.getMessage());</span>
+<span class="pc" id="L107">    }</span>
+    try{
+<span class="nc" id="L109">      grille.verifColonne(1,'@');</span>
+<span class="nc" id="L110">    }catch (HorsBornesException horsBornes){</span>
+<span class="nc" id="L111">      Assertions.assertEquals(&quot;La coordonnées : 10 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="fc" id="L112">    }catch (CaractereInterditException caractereInterdit){</span>
+<span class="fc" id="L113">      Assertions.assertEquals(&quot;Le caractère : @ que vous avez renseignée n'est pas permise.&quot;,caractereInterdit.getMessage());</span>
+<span class="nc" id="L114">    }</span>
+<span class="fc" id="L115">  }</span>
+
+  @Test
+  public void verifLigneTest(){
+<span class="fc" id="L119">    GrilleImpl grille = new GrilleImpl(9);</span>
+    try{
+<span class="nc" id="L121">      grille.verifLigne(10,'7');</span>
+<span class="fc" id="L122">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L123">      Assertions.assertEquals(&quot;La coordonnées : 10 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L124">    }catch (CaractereInterditException caractereInterdit){</span>
+<span class="nc" id="L125">      Assertions.assertEquals(&quot;Le caractère : @  que vous avez renseignée n'est pas permise.&quot;,caractereInterdit.getMessage());</span>
+<span class="pc" id="L126">    }</span>
+
+    try{
+<span class="nc" id="L129">      grille.verifLigne(-1,'7');</span>
+<span class="fc" id="L130">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L131">      Assertions.assertEquals(&quot;La coordonnées : -1 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L132">    }catch (CaractereInterditException caractereInterdit){</span>
+<span class="nc" id="L133">      Assertions.assertEquals(&quot;Le caractère : @ que vous avez renseignée n'est pas permise.&quot;,caractereInterdit.getMessage());</span>
+<span class="pc" id="L134">    }</span>
+    try{
+<span class="nc" id="L136">      grille.verifLigne(1,'@');</span>
+<span class="nc" id="L137">    }catch (HorsBornesException horsBornes){</span>
+<span class="nc" id="L138">      Assertions.assertEquals(&quot;La coordonnées : 10 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="fc" id="L139">    }catch (CaractereInterditException caractereInterdit){</span>
+<span class="fc" id="L140">      Assertions.assertEquals(&quot;Le caractère : @ que vous avez renseignée n'est pas permise.&quot;,caractereInterdit.getMessage());</span>
+<span class="nc" id="L141">    }</span>
+<span class="fc" id="L142">  }</span>
+
+  @Test
+  public void getDimensionTest(){
+<span class="fc" id="L146">    GrilleImpl grille = new GrilleImpl(9);</span>
+<span class="fc" id="L147">    Assertions.assertEquals(9,grille.getDimension());</span>
+<span class="fc" id="L148">  }</span>
+
+  @Test
+  public void verifRegionTest() throws CaractereInterditException, HorsBornesException {
+<span class="fc" id="L152">    GrilleImpl grille = new GrilleImpl(9);</span>
+
+    try{
+<span class="nc" id="L155">      grille.verifRegion(-1, 0,'7');</span>
+<span class="fc" id="L156">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L157">      Assertions.assertEquals(&quot;La coordonnées : -1 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L158">    }catch (CaractereInterditException caractereInterdit){</span>
+<span class="nc" id="L159">      Assertions.assertEquals(&quot;Le caractère : @  que vous avez renseignée n'est pas permise.&quot;,caractereInterdit.getMessage());</span>
+<span class="pc" id="L160">    }</span>
+
+    try{
+<span class="nc" id="L163">      grille.verifRegion(10, 1, '7');</span>
+<span class="fc" id="L164">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L165">      Assertions.assertEquals(&quot;La coordonnées : 10 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L166">    }catch (CaractereInterditException caractereInterdit){</span>
+<span class="nc" id="L167">      Assertions.assertEquals(&quot;Le caractère : @ que vous avez renseignée n'est pas permise.&quot;,caractereInterdit.getMessage());</span>
+<span class="pc" id="L168">    }</span>
+
+    try{
+<span class="nc" id="L171">      grille.verifRegion(1, -1, '7');</span>
+<span class="fc" id="L172">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L173">      Assertions.assertEquals(&quot;La coordonnées : -1 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L174">    }catch (CaractereInterditException caractereInterdit){</span>
+<span class="nc" id="L175">      Assertions.assertEquals(&quot;Le caractère : @ que vous avez renseignée n'est pas permise.&quot;,caractereInterdit.getMessage());</span>
+<span class="pc" id="L176">    }</span>
+
+    try{
+<span class="nc" id="L179">      grille.verifRegion(1, 10, '7');</span>
+<span class="fc" id="L180">    }catch (HorsBornesException horsBornes){</span>
+<span class="fc" id="L181">      Assertions.assertEquals(&quot;La coordonnées : 10 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="nc" id="L182">    }catch (CaractereInterditException caractereInterdit){</span>
+<span class="nc" id="L183">      Assertions.assertEquals(&quot;Le caractère : @ que vous avez renseignée n'est pas permise.&quot;,caractereInterdit.getMessage());</span>
+<span class="pc" id="L184">    }</span>
+
+    try{
+<span class="nc" id="L187">      grille.verifRegion(1, 1, '@');</span>
+<span class="nc" id="L188">    }catch (HorsBornesException horsBornes){</span>
+<span class="nc" id="L189">      Assertions.assertEquals(&quot;La coordonnées : -1 n'est pas correcte, elle est hors grille&quot;,horsBornes.getMessage());</span>
+<span class="fc" id="L190">    }catch (CaractereInterditException caractereInterdit){</span>
+<span class="fc" id="L191">      Assertions.assertEquals(&quot;Le caractère : @ que vous avez renseignée n'est pas permise.&quot;,caractereInterdit.getMessage());</span>
+<span class="nc" id="L192">    }</span>
+
+<span class="fc" id="L194">    Assertions.assertFalse(grille.verifRegion(0,0,'6'));</span>
+<span class="fc" id="L195">    Assertions.assertFalse(grille.verifRegion(8,0,'5'));</span>
+<span class="fc" id="L196">    Assertions.assertFalse(grille.verifRegion(0,8,'3'));</span>
+<span class="fc" id="L197">    Assertions.assertFalse(grille.verifRegion(8,8,'4'));</span>
+<span class="fc" id="L198">    Assertions.assertFalse(grille.verifRegion(0,1,'7'));</span>
+<span class="fc" id="L199">    Assertions.assertFalse(grille.verifRegion(1,0,'7'));</span>
+<span class="fc" id="L200">    Assertions.assertFalse(grille.verifRegion(8,1,'6'));</span>
+<span class="fc" id="L201">    Assertions.assertFalse(grille.verifRegion(1,8,'2'));</span>
+<span class="fc" id="L202">  }</span>
+
+  @Test
+  public void remisePointZeroRegionTest(){
+<span class="fc" id="L206">    GrilleImpl grille = new GrilleImpl(9);</span>
+<span class="fc" id="L207">    Assertions.assertEquals(0, grille.remisePointZeroRegion(1));</span>
+<span class="fc" id="L208">    Assertions.assertEquals(4, grille.remisePointZeroRegion(5));</span>
+<span class="fc" id="L209">    Assertions.assertEquals(7, grille.remisePointZeroRegion(8));</span>
+<span class="fc" id="L210">    GrilleImpl grandeGrille = new GrilleImpl(25);</span>
+<span class="fc" id="L211">    Assertions.assertEquals(11, grandeGrille.remisePointZeroRegion(11));</span>
+<span class="fc" id="L212">    Assertions.assertEquals(16, grandeGrille.remisePointZeroRegion(16));</span>
+<span class="fc" id="L213">    Assertions.assertEquals(21, grandeGrille.remisePointZeroRegion(22));</span>
+<span class="fc" id="L214">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

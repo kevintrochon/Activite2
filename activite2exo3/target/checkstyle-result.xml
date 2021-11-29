@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.29">
+<file name="D:\C306_DEVOIR\Devoir_2\Activite2\activite2exo3\src\main\java\nc\unc\kevin\trochon\CaractereInterditException.java">
+</file>
+<file name="D:\C306_DEVOIR\Devoir_2\Activite2\activite2exo3\src\main\java\nc\unc\kevin\trochon\Grille.java">
+<error line="7" severity="warning" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
+<error line="11" severity="warning" message="Single-line Javadoc comment should be multi-line." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SingleLineJavadocCheck"/>
+<error line="11" severity="warning" message="Summary javadoc is missing." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
+<error line="13" severity="warning" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
+<error line="19" severity="warning" message="Line is longer than 100 characters (found 105)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="22" severity="warning" message="&apos;METHOD_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+<error line="24" severity="warning" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
+<error line="31" severity="warning" message="&apos;METHOD_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+<error line="32" severity="warning" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
+<error line="36" severity="warning" message="&apos;METHOD_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+<error line="37" severity="warning" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
+<error line="46" severity="warning" message="&apos;METHOD_DEF&apos; should be separated from previous statement." source="com.puppycrawl.tools.checkstyle.checks.whitespace.EmptyLineSeparatorCheck"/>
+</file>
+<file name="D:\C306_DEVOIR\Devoir_2\Activite2\activite2exo3\src\main\java\nc\unc\kevin\trochon\GrilleImpl.java">
+</file>
+<file name="D:\C306_DEVOIR\Devoir_2\Activite2\activite2exo3\src\main\java\nc\unc\kevin\trochon\HorsBornesException.java">
+</file>
+<file name="D:\C306_DEVOIR\Devoir_2\Activite2\activite2exo3\src\main\java\nc\unc\kevin\trochon\ValeurImpossibleException.java">
+</file>
+</checkstyle>

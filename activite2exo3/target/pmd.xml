@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd"
+    version="6.21.0" timestamp="2021-11-29T18:01:00.141">
+<error filename="D:\C306_DEVOIR\Devoir_2\Activite2\activite2exo3\src\test\java\nc\unc\kevin\trochon\GrilleImplTest.java" msg="PMDException: Error while parsing D:\C306_DEVOIR\Devoir_2\Activite2\activite2exo3\src\test\java\nc\unc\kevin\trochon\GrilleImplTest.java">
+<![CDATA[net.sourceforge.pmd.PMDException: Error while parsing D:\C306_DEVOIR\Devoir_2\Activite2\activite2exo3\src\test\java\nc\unc\kevin\trochon\GrilleImplTest.java
+	at net.sourceforge.pmd.SourceCodeProcessor.processSourceCodeWithoutCache(SourceCodeProcessor.java:110)
+	at net.sourceforge.pmd.SourceCodeProcessor.processSourceCode(SourceCodeProcessor.java:89)
+	at net.sourceforge.pmd.SourceCodeProcessor.processSourceCode(SourceCodeProcessor.java:51)
+	at net.sourceforge.pmd.processor.PmdRunnable.call(PmdRunnable.java:78)
+	at net.sourceforge.pmd.processor.PmdRunnable.call(PmdRunnable.java:24)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: net.sourceforge.pmd.lang.java.ast.ParseException: Line 13, Column 63: Cannot use lambda expressions when running in JDK inferior to 1.8 mode!
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.throwParseException(JavaParser.java:28)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.checkForBadLambdaUsage(JavaParser.java:111)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.LambdaExpression(JavaParser.java:3942)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.PrimaryPrefix(JavaParser.java:3878)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.PrimaryExpression(JavaParser.java:3698)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.PostfixExpression(JavaParser.java:3525)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.UnaryExpressionNotPlusMinus(JavaParser.java:3483)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.UnaryExpression(JavaParser.java:3360)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.MultiplicativeExpression(JavaParser.java:3275)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.AdditiveExpression(JavaParser.java:3222)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.ShiftExpression(JavaParser.java:3165)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.RelationalExpression(JavaParser.java:3104)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.InstanceOfExpression(JavaParser.java:3068)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.EqualityExpression(JavaParser.java:3015)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.AndExpression(JavaParser.java:2975)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.ExclusiveOrExpression(JavaParser.java:2935)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.InclusiveOrExpression(JavaParser.java:2895)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.ConditionalAndExpression(JavaParser.java:2855)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.ConditionalOrExpression(JavaParser.java:2815)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.ConditionalExpression(JavaParser.java:2777)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.Expression(JavaParser.java:2634)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.ArgumentList(JavaParser.java:4440)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.Arguments(JavaParser.java:4394)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.PrimarySuffix(JavaParser.java:4220)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.PrimaryExpression(JavaParser.java:3706)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.PostfixExpression(JavaParser.java:3525)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.StatementExpression(JavaParser.java:5022)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.Statement(JavaParser.java:4666)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.BlockStatement(JavaParser.java:4825)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.Block(JavaParser.java:4781)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.MethodDeclaration(JavaParser.java:1615)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.ClassOrInterfaceBodyDeclaration(JavaParser.java:1296)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.ClassOrInterfaceBody(JavaParser.java:1251)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.ClassOrInterfaceDeclaration(JavaParser.java:707)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.TypeDeclaration(JavaParser.java:618)
+	at net.sourceforge.pmd.lang.java.ast.JavaParser.CompilationUnit(JavaParser.java:352)
+	at net.sourceforge.pmd.lang.java.AbstractJavaParser.parse(AbstractJavaParser.java:62)
+	at net.sourceforge.pmd.SourceCodeProcessor.parse(SourceCodeProcessor.java:121)
+	at net.sourceforge.pmd.SourceCodeProcessor.processSource(SourceCodeProcessor.java:185)
+	at net.sourceforge.pmd.SourceCodeProcessor.processSourceCodeWithoutCache(SourceCodeProcessor.java:107)
+	... 10 more
+]]>
+</error>
+</pmd>

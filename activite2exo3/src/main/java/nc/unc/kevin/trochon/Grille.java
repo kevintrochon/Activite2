@@ -1,20 +1,13 @@
 package nc.unc.kevin.trochon;
 
+/**
+ * Interface pour la contruction d'une grille.
+ */
 public interface Grille {
   /** Caractere de case vide */
   char EMPTY = '@';
-  /**
-   * Caractere possible a mettre dans la grille
-   * pour une grille 4x4 : 1..4
-   * pour une grille 9x9 : 1..9
-   * pour une grille 16x16: 0..9-a..f
-   * pour une grille 25x25: 0..9-a..o
-   */
-  char[] possible = new char[] {
-      '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-      'k', 'l', 'm', 'n', 'o'
-  };
+
+
   /** @return largeur/hauteur de la grille */
   int getDimension();
   /**
